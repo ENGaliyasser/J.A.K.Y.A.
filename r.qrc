@@ -2,4 +2,7 @@
   <qresource prefix="logo">
     <file>BrightLogo.png</file>
   </qresource>
+  <qresource prefix="JAKYA">
+    <file>JAKYA_LOGO.jpg</file>
+  </qresource>
 </RCC>

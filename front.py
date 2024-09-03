@@ -14,79 +14,410 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
+        MainWindow.resize(929, 604)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
+        self.tabWidget.setStyleSheet("/* Main Window */\n"
+"QMainWindow {\n"
+"    background-color: #f0f4f8;\n"
+"    font-family: Arial, Helvetica, sans-serif;\n"
+"}\n"
+"\n"
+"/* Tab Widget */\n"
+"QTabWidget::pane {\n"
+"    border: 1px solid #cccccc;\n"
+"    background-color: #ffffff;\n"
+"}\n"
+"\n"
+"QTabBar::tab {\n"
+"    background: #dce4ec;\n"
+"    color: #004c8c;\n"
+"    border: 1px solid #aaaaaa;\n"
+"    padding: 10px;\n"
+"    min-width: 120px;\n"
+"    font-weight: bold;\n"
+"}\n"
+"\n"
+"QTabBar::tab:selected {\n"
+"    background: #004c8c;\n"
+"    color: #ffffff;\n"
+"}\n"
+"\n"
+"/* Labels */\n"
+"QLabel {\n"
+"    color: #004c8c;\n"
+"    font-weight: bold;\n"
+"}\n"
+"\n"
+"/* Push Buttons */\n"
+"QPushButton {\n"
+"    background-color: #008cba;\n"
+"    color: white;\n"
+"    border-radius: 10px;\n"
+"    padding: 8px;\n"
+"    font-size: 14px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #005f7a;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #003f50;\n"
+"}\n"
+"\n"
+"/* Group Boxes */\n"
+"QGroupBox {\n"
+"    border: 2px solid #004c8c;\n"
+"    border-radius: 5px;\n"
+"    margin-top: 20px;\n"
+"    color: #004c8c;\n"
+"    font-weight: bold;\n"
+"}\n"
+"\n"
+"QGroupBox::title {\n"
+"    subcontrol-origin: margin;\n"
+"    subcontrol-position: top center;\n"
+"    padding: 5px;\n"
+"}\n"
+"\n"
+"/* Text Edit */\n"
+"QTextEdit {\n"
+"    background-color: #ffffff;\n"
+"    color: #004c8c;\n"
+"    border: 1px solid #cccccc;\n"
+"    padding: 8px;\n"
+"}\n"
+"\n"
+"/* Line Edit */\n"
+"QLineEdit {\n"
+"    background-color: #ffffff;\n"
+"    color: #004c8c;\n"
+"    border: 1px solid #cccccc;\n"
+"    padding: 5px;\n"
+"    border-radius: 5px;\n"
+"}\n"
+"\n"
+"/* Combo Box */\n"
+"QComboBox {\n"
+"    background-color: #ffffff;\n"
+"    color: #004c8c;\n"
+"    border: 1px solid #cccccc;\n"
+"    padding: 5px;\n"
+"    border-radius: 5px;\n"
+"}\n"
+"\n"
+"QComboBox:hover {\n"
+"    border: 1px solid #008cba;\n"
+"}\n"
+"\n"
+"/* Status Bar */\n"
+"QStatusBar {\n"
+"    background-color: #004c8c;\n"
+"    color: #ffffff;\n"
+"}\n"
+"\n"
+"/* Scroll Bar */\n"
+"QScrollBar:vertical {\n"
+"    background-color: #dce4ec;\n"
+"    width: 12px;\n"
+"    margin: 20px 0 20px 0;\n"
+"    border: 1px solid #aaaaaa;\n"
+"}\n"
+"\n"
+"QScrollBar::handle:vertical {\n"
+"    background-color: #004c8c;\n"
+"    min-height: 20px;\n"
+"}\n"
+"\n"
+"QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {\n"
+"    background-color: #dce4ec;\n"
+"    border: 1px solid #aaaaaa;\n"
+"}\n"
+"\n"
+"QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\n"
+"    background: none;\n"
+"}\n"
+"\n"
+"/* Tool Bar */\n"
+"QToolBar {\n"
+"    background-color: #004c8c;\n"
+"    border-bottom: 1px solid #cccccc;\n"
+"}\n"
+"\n"
+"QToolButton {\n"
+"    background-color: transparent;\n"
+"    border: none;\n"
+"    color: white;\n"
+"    padding: 5px;\n"
+"}\n"
+"\n"
+"QToolButton:hover {\n"
+"    background-color: #005f7a;\n"
+"}")
+        self.tabWidget.setInputMethodHints(QtCore.Qt.ImhDialableCharactersOnly|QtCore.Qt.ImhDigitsOnly|QtCore.Qt.ImhEmailCharactersOnly|QtCore.Qt.ImhFormattedNumbersOnly|QtCore.Qt.ImhLatinOnly|QtCore.Qt.ImhLowercaseOnly|QtCore.Qt.ImhUppercaseOnly|QtCore.Qt.ImhUrlCharactersOnly)
         self.tabWidget.setTabBarAutoHide(True)
         self.tabWidget.setObjectName("tabWidget")
         self.welcome_tab = QtWidgets.QWidget()
         self.welcome_tab.setObjectName("welcome_tab")
-        self.user_btn = QtWidgets.QPushButton(self.welcome_tab)
-        self.user_btn.setGeometry(QtCore.QRect(230, 230, 93, 28))
-        self.user_btn.setObjectName("user_btn")
-        self.audit_btn = QtWidgets.QPushButton(self.welcome_tab)
-        self.audit_btn.setGeometry(QtCore.QRect(420, 230, 93, 28))
-        self.audit_btn.setObjectName("audit_btn")
+        self.gridLayout_4 = QtWidgets.QGridLayout(self.welcome_tab)
+        self.gridLayout_4.setObjectName("gridLayout_4")
+        self.horizontalLayout_6 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_6.setObjectName("horizontalLayout_6")
+        self.label_5 = QtWidgets.QLabel(self.welcome_tab)
+        self.label_5.setMinimumSize(QtCore.QSize(291, 211))
+        self.label_5.setMaximumSize(QtCore.QSize(291, 211))
+        self.label_5.setStyleSheet("background-image: url(:/JAKYA/JAKYA_LOGO.jpg);")
+        self.label_5.setText("")
+        self.label_5.setObjectName("label_5")
+        self.horizontalLayout_6.addWidget(self.label_5)
+        spacerItem = QtWidgets.QSpacerItem(448, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_6.addItem(spacerItem)
+        self.gridLayout_4.addLayout(self.horizontalLayout_6, 0, 0, 1, 2)
+        self.verticalLayout_5 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_5.setObjectName("verticalLayout_5")
         self.label = QtWidgets.QLabel(self.welcome_tab)
-        self.label.setGeometry(QtCore.QRect(640, 0, 121, 91))
+        self.label.setMinimumSize(QtCore.QSize(121, 91))
+        self.label.setMaximumSize(QtCore.QSize(121, 91))
         self.label.setStyleSheet("background-image: url(:/logo/BrightLogo.png);")
         self.label.setText("")
         self.label.setObjectName("label")
+        self.verticalLayout_5.addWidget(self.label)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 388, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_5.addItem(spacerItem1)
+        self.gridLayout_4.addLayout(self.verticalLayout_5, 0, 2, 3, 1)
+        self.verticalLayout_6 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_6.setObjectName("verticalLayout_6")
+        spacerItem2 = QtWidgets.QSpacerItem(20, 218, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_6.addItem(spacerItem2)
+        self.validation_label = QtWidgets.QLabel(self.welcome_tab)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.validation_label.setFont(font)
+        self.validation_label.setObjectName("validation_label")
+        self.verticalLayout_6.addWidget(self.validation_label)
+        self.gridLayout_4.addLayout(self.verticalLayout_6, 1, 0, 2, 1)
+        self.verticalLayout_7 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_7.setObjectName("verticalLayout_7")
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.validation_label_6 = QtWidgets.QLabel(self.welcome_tab)
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
+        self.validation_label_6.setFont(font)
+        self.validation_label_6.setObjectName("validation_label_6")
+        self.verticalLayout_3.addWidget(self.validation_label_6)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_3.addItem(spacerItem3)
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.user_btn = QtWidgets.QPushButton(self.welcome_tab)
+        font = QtGui.QFont()
+        font.setPointSize(-1)
+        self.user_btn.setFont(font)
+        self.user_btn.setObjectName("user_btn")
+        self.horizontalLayout_5.addWidget(self.user_btn)
+        self.audit_btn = QtWidgets.QPushButton(self.welcome_tab)
+        font = QtGui.QFont()
+        font.setPointSize(-1)
+        self.audit_btn.setFont(font)
+        self.audit_btn.setObjectName("audit_btn")
+
+        self.horizontalLayout_5.addWidget(self.audit_btn)
+        self.verticalLayout_3.addLayout(self.horizontalLayout_5)
+        self.verticalLayout_7.addLayout(self.verticalLayout_3)
+        self.gridLayout_4.addLayout(self.verticalLayout_7, 1, 1, 1, 1)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 118, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_4.addItem(spacerItem4, 2, 1, 1, 1)
+
         self.tabWidget.addTab(self.welcome_tab, "")
         self.user_tab = QtWidgets.QWidget()
         self.user_tab.setObjectName("user_tab")
-        self.label_user = QtWidgets.QLabel(self.user_tab)
-        self.label_user.setGeometry(QtCore.QRect(80, 80, 55, 16))
-        self.label_user.setObjectName("label_user")
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.user_tab)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.back_btn_user = QtWidgets.QPushButton(self.user_tab)
-        self.back_btn_user.setGeometry(QtCore.QRect(530, 90, 93, 28))
+        self.back_btn_user.setMinimumSize(QtCore.QSize(25, 25))
+        self.back_btn_user.setMaximumSize(QtCore.QSize(25, 25))
+        font = QtGui.QFont()
+        font.setPointSize(-1)
+        font.setBold(True)
+        font.setWeight(75)
+        self.back_btn_user.setFont(font)
+        self.back_btn_user.setStyleSheet("QPushButton {\n"
+"    background-color: #3498db;    /* Background color of the button */\n"
+"    border: none;                 /* Remove default border */\n"
+"    border-radius: 12px;          /* Makes the button circular (half of width/height) */\n"
+"    width: 25px;                  /* Width of the button */\n"
+"    height: 25px;                 /* Height of the button */\n"
+"    color: white;                 /* Color of the arrow */\n"
+"    font-size:25px;              /* Size of the arrow */\n"
+"    font-weight: bold;            /* Bold arrow */\n"
+"    text-align: center;           /* Center the arrow */\n"
+"    padding: 0px;                 /* Remove any padding */\n"
+"}\n"
+"")
         self.back_btn_user.setObjectName("back_btn_user")
+        self.horizontalLayout_4.addWidget(self.back_btn_user)
+        spacerItem5 = QtWidgets.QSpacerItem(598, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem5)
+        self.label_2 = QtWidgets.QLabel(self.user_tab)
+        self.label_2.setMinimumSize(QtCore.QSize(121, 91))
+        self.label_2.setMaximumSize(QtCore.QSize(121, 91))
+        self.label_2.setStyleSheet("background-image: url(:/logo/BrightLogo.png);")
+        self.label_2.setText("")
+        self.label_2.setObjectName("label_2")
+        self.horizontalLayout_4.addWidget(self.label_2)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_4)
+        self.label_4 = QtWidgets.QLabel(self.user_tab)
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_4.setFont(font)
+        self.label_4.setObjectName("label_4")
+        self.verticalLayout_2.addWidget(self.label_4)
+        self.textEdit_user = QtWidgets.QTextEdit(self.user_tab)
+        self.textEdit_user.setMinimumSize(QtCore.QSize(0, 0))
+        self.textEdit_user.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.textEdit_user.setObjectName("textEdit_user")
+        self.verticalLayout_2.addWidget(self.textEdit_user)
+        self.validation_label_2 = QtWidgets.QLabel(self.user_tab)
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.validation_label_2.setFont(font)
+        self.validation_label_2.setObjectName("validation_label_2")
+        self.verticalLayout_2.addWidget(self.validation_label_2)
+        self.gridLayout_2.addLayout(self.verticalLayout_2, 0, 0, 2, 2)
+        spacerItem6 = QtWidgets.QSpacerItem(20, 470, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_2.addItem(spacerItem6, 1, 1, 1, 1)
         self.tabWidget.addTab(self.user_tab, "")
         self.audit_tab = QtWidgets.QWidget()
         self.audit_tab.setObjectName("audit_tab")
-        self.label_audit = QtWidgets.QLabel(self.audit_tab)
-        self.label_audit.setGeometry(QtCore.QRect(60, 70, 55, 16))
-        self.label_audit.setObjectName("label_audit")
-        self.pushButton_browse_audit = QtWidgets.QPushButton(self.audit_tab)
-        self.pushButton_browse_audit.setGeometry(QtCore.QRect(320, 260, 93, 28))
-        self.pushButton_browse_audit.setObjectName("pushButton_browse_audit")
-        self.back_btn_audit = QtWidgets.QPushButton(self.audit_tab)
-        self.back_btn_audit.setGeometry(QtCore.QRect(610, 20, 93, 28))
-        self.back_btn_audit.setObjectName("back_btn_audit")
-        self.layoutWidget = QtWidgets.QWidget(self.audit_tab)
-        self.layoutWidget.setGeometry(QtCore.QRect(70, 200, 201, 24))
-        self.layoutWidget.setObjectName("layoutWidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.layoutWidget)
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+
+        self.gridLayout_3 = QtWidgets.QGridLayout(self.audit_tab)
+        self.gridLayout_3.setObjectName("gridLayout_3")
+        self.textEdit_audit_readonly = QtWidgets.QTextEdit(self.audit_tab)
+        self.textEdit_audit_readonly.setMinimumSize(QtCore.QSize(620, 250))
+        self.textEdit_audit_readonly.setMaximumSize(QtCore.QSize(620, 250))
+        self.textEdit_audit_readonly.setAcceptDrops(True)
+        self.textEdit_audit_readonly.setReadOnly(True)
+        self.textEdit_audit_readonly.setObjectName("textEdit_audit_readonly")
+        self.gridLayout_3.addWidget(self.textEdit_audit_readonly, 1, 0, 2, 1)
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.password_label = QtWidgets.QLabel(self.layoutWidget)
+        self.password_label = QtWidgets.QLabel(self.audit_tab)
         self.password_label.setObjectName("password_label")
         self.horizontalLayout.addWidget(self.password_label)
-        self.lineEdit_password_audit = QtWidgets.QLineEdit(self.layoutWidget)
+        self.lineEdit_password_audit = QtWidgets.QLineEdit(self.audit_tab)
+        self.lineEdit_password_audit.setInputMethodHints(QtCore.Qt.ImhHiddenText|QtCore.Qt.ImhNoAutoUppercase|QtCore.Qt.ImhNoEditMenu|QtCore.Qt.ImhNoPredictiveText|QtCore.Qt.ImhNoTextHandles|QtCore.Qt.ImhSensitiveData)
+        self.lineEdit_password_audit.setEchoMode(QtWidgets.QLineEdit.Password)
+
         self.lineEdit_password_audit.setObjectName("lineEdit_password_audit")
         self.horizontalLayout.addWidget(self.lineEdit_password_audit)
-        self.label_excel = QtWidgets.QLabel(self.audit_tab)
-        self.label_excel.setGeometry(QtCore.QRect(71, 261, 29, 16))
-        self.label_excel.setObjectName("label_excel")
-        self.lineEdit_Excel_audit = QtWidgets.QLineEdit(self.audit_tab)
-        self.lineEdit_Excel_audit.setGeometry(QtCore.QRect(107, 261, 137, 22))
-        self.lineEdit_Excel_audit.setReadOnly(True)
-        self.lineEdit_Excel_audit.setObjectName("lineEdit_Excel_audit")
+        self.verticalLayout_4.addLayout(self.horizontalLayout)
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.lineEdit_audit = QtWidgets.QLineEdit(self.audit_tab)
-        self.lineEdit_audit.setGeometry(QtCore.QRect(120, 70, 137, 22))
-        self.lineEdit_audit.setReadOnly(True)
         self.lineEdit_audit.setObjectName("lineEdit_audit")
+        self.horizontalLayout_2.addWidget(self.lineEdit_audit)
         self.insert_btn_audit = QtWidgets.QPushButton(self.audit_tab)
-        self.insert_btn_audit.setGeometry(QtCore.QRect(270, 70, 93, 28))
         self.insert_btn_audit.setObjectName("insert_btn_audit")
+        self.horizontalLayout_2.addWidget(self.insert_btn_audit)
+        self.verticalLayout_4.addLayout(self.horizontalLayout_2)
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.label_excel = QtWidgets.QLabel(self.audit_tab)
+        self.label_excel.setObjectName("label_excel")
+
+        self.horizontalLayout_3.addWidget(self.label_excel)
+        self.lineEdit_excel_audit = QtWidgets.QLineEdit(self.audit_tab)
+        self.lineEdit_excel_audit.setMinimumSize(QtCore.QSize(500, 0))
+        self.lineEdit_excel_audit.setObjectName("lineEdit_excel_audit")
+        self.horizontalLayout_3.addWidget(self.lineEdit_excel_audit)
+        self.pushButton_browse_audit = QtWidgets.QPushButton(self.audit_tab)
+        self.pushButton_browse_audit.setObjectName("pushButton_browse_audit")
+        self.horizontalLayout_3.addWidget(self.pushButton_browse_audit)
+        self.verticalLayout_4.addLayout(self.horizontalLayout_3)
+        self.gridLayout_3.addLayout(self.verticalLayout_4, 3, 0, 1, 2)
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.validation_label_4 = QtWidgets.QLabel(self.audit_tab)
+        self.validation_label_4.setMinimumSize(QtCore.QSize(250, 24))
+        self.validation_label_4.setMaximumSize(QtCore.QSize(250, 24))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.validation_label_4.setFont(font)
+        self.validation_label_4.setObjectName("validation_label_4")
+        self.verticalLayout.addWidget(self.validation_label_4)
+        self.validation_label_5 = QtWidgets.QLabel(self.audit_tab)
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.validation_label_5.setFont(font)
+        self.validation_label_5.setObjectName("validation_label_5")
+        self.verticalLayout.addWidget(self.validation_label_5)
+        self.gridLayout_3.addLayout(self.verticalLayout, 4, 1, 1, 2)
+        self.validation_label_3 = QtWidgets.QLabel(self.audit_tab)
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.validation_label_3.setFont(font)
+        self.validation_label_3.setObjectName("validation_label_3")
+        self.gridLayout_3.addWidget(self.validation_label_3, 4, 0, 1, 1)
+        spacerItem7 = QtWidgets.QSpacerItem(125, 88, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_3.addItem(spacerItem7, 1, 1, 1, 1)
+        spacerItem8 = QtWidgets.QSpacerItem(118, 272, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_3.addItem(spacerItem8, 2, 2, 2, 1)
+        self.label_3 = QtWidgets.QLabel(self.audit_tab)
+        self.label_3.setMinimumSize(QtCore.QSize(121, 91))
+        self.label_3.setMaximumSize(QtCore.QSize(121, 91))
+        self.label_3.setStyleSheet("background-image: url(:/logo/BrightLogo.png);")
+        self.label_3.setText("")
+        self.label_3.setObjectName("label_3")
+        self.gridLayout_3.addWidget(self.label_3, 1, 2, 1, 1)
+        self.back_btn_audit = QtWidgets.QPushButton(self.audit_tab)
+        self.back_btn_audit.setMinimumSize(QtCore.QSize(25, 25))
+        self.back_btn_audit.setMaximumSize(QtCore.QSize(25, 25))
+        font = QtGui.QFont()
+        font.setPointSize(-1)
+        font.setBold(True)
+        font.setWeight(75)
+        self.back_btn_audit.setFont(font)
+        self.back_btn_audit.setStyleSheet("QPushButton {\n"
+"    background-color: #3498db;    /* Background color of the button */\n"
+"    border: none;                 /* Remove default border */\n"
+"    border-radius: 12px;          /* Makes the button circular (half of width/height) */\n"
+"    width: 25px;                  /* Width of the button */\n"
+"    height: 25px;                 /* Height of the button */\n"
+"    color: white;                 /* Color of the arrow */\n"
+"    font-size:25px;              /* Size of the arrow */\n"
+"    font-weight: bold;            /* Bold arrow */\n"
+"    text-align: center;           /* Center the arrow */\n"
+"    padding: 0px;                 /* Remove any padding */\n"
+"}\n"
+"")
+        self.back_btn_audit.setObjectName("back_btn_audit")
+        self.gridLayout_3.addWidget(self.back_btn_audit, 0, 0, 1, 1)
+
         self.tabWidget.addTab(self.audit_tab, "")
-        self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.tabWidget, 1, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 929, 26))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -100,17 +431,34 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "JAKYA"))
+        self.validation_label.setText(_translate("MainWindow", "Brightskies Validation Team"))
+        self.validation_label_6.setText(_translate("MainWindow", "Select Mode"))
         self.user_btn.setText(_translate("MainWindow", "User Mode"))
         self.audit_btn.setText(_translate("MainWindow", "Audit Mode"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.welcome_tab), _translate("MainWindow", "Welcome"))
-        self.label_user.setText(_translate("MainWindow", "User"))
-        self.back_btn_user.setText(_translate("MainWindow", "Back"))
+        self.back_btn_user.setText(_translate("MainWindow", "↩"))
+        self.label_4.setText(_translate("MainWindow", "Data"))
+        self.validation_label_2.setText(_translate("MainWindow", "Brightskies Validation Team"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.user_tab), _translate("MainWindow", "User Mode"))
-        self.label_audit.setText(_translate("MainWindow", "Audit"))
-        self.pushButton_browse_audit.setText(_translate("MainWindow", "Browse"))
-        self.back_btn_audit.setText(_translate("MainWindow", "Back"))
         self.password_label.setText(_translate("MainWindow", "Password"))
+        self.insert_btn_audit.setText(_translate("MainWindow", "Search"))
         self.label_excel.setText(_translate("MainWindow", "Excel"))
-        self.insert_btn_audit.setText(_translate("MainWindow", "insert"))
+
+        self.pushButton_browse_audit.setText(_translate("MainWindow", "Browse"))
+        self.validation_label_4.setText(_translate("MainWindow", "Audit:"))
+        self.validation_label_5.setText(_translate("MainWindow", "Date:"))
+        self.validation_label_3.setText(_translate("MainWindow", "Brightskies Validation Team"))
+        self.back_btn_audit.setText(_translate("MainWindow", "↩"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.audit_tab), _translate("MainWindow", "Audit Mode"))
-import r
+import r_rc
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
+
