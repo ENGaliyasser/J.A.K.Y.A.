@@ -805,6 +805,23 @@ QTextBrowser QScrollBar {
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QLabel" name="label_15">
+              <property name="text">
+               <string>Asset Tag</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="lineEdit"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_Scan">
+              <property name="text">
+               <string>Scan</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item>
