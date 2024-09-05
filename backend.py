@@ -3,7 +3,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets, QtTest
 import sys
 from PyQt5.QtWidgets import QMessageBox, QFileDialog
 import openpyxl
-from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QTimer, pyqtSignal, QObject, QThread
 import os
 import sys
 from PyQt5 import QtWidgets
@@ -40,7 +40,11 @@ def check_excel_format(excel_file):
     workbook = openpyxl.load_workbook(excel_file)
     sheet = workbook.active
     # defining the excpected columns
-    expected_columns = ["Asset Name", "Asset Tag", "Serial", "Model", "Assigne"]
+    # TODO:
+    # Add Model, Category, Status, Checked Out To, Location, Purchase Cost, HS-Code, Owner
+    # Important (ERROR): Asset Name, Asset Tag, Serial, Checked Out To, Owner (USER MODE)
+    # Warning: The rest
+    expected_columns = ["Asset Name", "Asset Tag", "Serial", "Checked Out To", "Model", "Assigne"]
     # Get the actual number of columns in the first row
     actual_columns = [sheet.cell(row=1, column=i).value for i in range(1, 6)]
     print(actual_columns)
@@ -69,6 +73,7 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         self.pushButton_login.clicked.connect(self.login)
         self.insert_btn_audit.clicked.connect(self.insert_audit)
         self.new_login()
+        self.lineEdit_audit.editingFinished.connect(self.insert_audit)
         # Initialize Updater with the current version and repository details
         self.updater = Updater(
             current_version="v2.00",  # Replace with your tool's version
@@ -271,6 +276,7 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         except Exception as e:
             QMessageBox.about(self, "Message", "Error: " + str(e))
 
+            
 
 
 if __name__ == "__main__":
