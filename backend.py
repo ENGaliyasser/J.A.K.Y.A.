@@ -8,6 +8,8 @@ import os
 import sys
 from PyQt5 import QtWidgets
 from updater import Updater
+import time
+from datetime import date
 
 # Global Variable to store the password
 password = "jakya2024"
@@ -193,6 +195,11 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         self.msg_box.close()
         self.tabWidget.setCurrentIndex(3)
         self.Display_audit()
+        self.textBrowser_5.setText(str(date.today()))
+        self.textBrowser_4.setText(os.path.basename(str(self.Excel_Name)))
+       # self.lineEdit_audit.setVisible(False)
+        self.lineEdit_audit.setFocus()
+        
 
 
     def insert_audit(self):
@@ -221,6 +228,8 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
 
         except Exception as e:
             QMessageBox.about(self, "Message", "Error: " + str(e))
+        self.lineEdit_audit.clear()
+        self.lineEdit_audit.setFocus()
 
     def Display_audit(self):
         try:
