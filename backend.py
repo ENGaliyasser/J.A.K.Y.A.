@@ -4,6 +4,10 @@ import sys
 from PyQt5.QtWidgets import QMessageBox, QFileDialog
 import openpyxl
 from PyQt5.QtCore import QTimer
+import os
+import sys
+from PyQt5 import QtWidgets
+from updater import Updater
 
 # Global Variable to store the password
 password = "jakya2024"
@@ -63,6 +67,24 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         self.pushButton_login.clicked.connect(self.login)
         self.insert_btn_audit.clicked.connect(self.insert_audit)
         self.new_login()
+        # Initialize Updater with the current version and repository details
+        self.updater = Updater(
+            current_version="v2.00",  # Replace with your tool's version
+            repo_owner="ENGaliyasser",
+            repo_name="JAKYA",
+            progress_bar=self.progressBar
+        )
+
+        # Connect the update button to the updater's update function
+        self.update.clicked.connect(self.updater.update_application)
+
+        # Hide update-related UI elements initially
+        self.progressBar.setVisible(False)
+        self.update.setVisible(False)
+        self.ask.setVisible(False)
+
+        # Connect the "Check" button to the check_update function
+        self.check.clicked.connect(lambda: self.updater.check_update(self.update, self.ask))
 
     def new_login(self):
         """
@@ -244,6 +266,7 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
+    Updater.delete_old_versions(current_version="v2.00")  # Replace with your tool's version
     MainWindow = QtWidgets.QMainWindow()
     ui = BackEndClass()
     MainWindow.show()
