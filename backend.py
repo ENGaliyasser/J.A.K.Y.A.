@@ -208,6 +208,15 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
 
 
     def insert_audit(self):
+        """
+           - Retrieves the asset tag entered by the user from the input field.
+           - Attempts to open 'Audit_Output.xlsx' for updates; if not available, opens the original Excel file.
+           - Searches for the asset tag in column 2 of the sheet.
+           - If the asset tag is found, marks "True" in column 6 of the corresponding row.
+           - Saves the updated data to 'Audit_Output.xlsx' and updates the display.
+           - If the asset tag is not found, shows an error message.
+           - Catches and handles any errors that occur during the process.
+           """
         AssetTag = str(self.lineEdit_audit.text())
         print("Asset Tag: " + AssetTag)
         try:
@@ -237,6 +246,14 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         self.lineEdit_audit.setFocus()
 
     def Display_audit(self):
+        """
+            - Attempts to open 'Audit_Output.xlsx'; if not found, opens the original Excel file.
+            - Displays the total number of rows in the sheet in 'textBrowser_6'.
+            - Initializes counters for marked ("True") and unmarked rows.
+            - Iterates through the rows to count how many rows are marked as "True" in column 6.
+            - Updates 'textBrowser_14' and 'textBrowser_16' with the count of marked rows.
+            - Updates 'textBrowser_15' with the count of unmarked rows.
+            """
         try:
             wb = openpyxl.load_workbook("Audit_Output.xlsx")
         except Exception as e:
@@ -256,6 +273,13 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
 
     #TODO: Use the live excel sheet
     def Scan_user(self):
+        """
+            - Retrieves the asset tag entered by the user from the input field.
+            - Opens 'Audit_Output.xlsx' to check for the asset tag in column 2.
+            - If a matching asset tag is found, it updates several text browsers with values from that row.
+            - Displays the asset name,model, and assigned user in the text browsers.
+            - Catches and handles any errors that occur during the process.
+            """
         AssetTag = str(self.lineEdit.text())
         print("Asset Tag: " + AssetTag)
         try:
