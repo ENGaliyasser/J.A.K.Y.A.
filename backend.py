@@ -10,6 +10,8 @@ from PyQt5 import QtWidgets
 from updater import Updater
 import time
 from datetime import date
+import access_sheet
+import gspread
 
 # Global Variable to store the password
 password = "jakya2024"
@@ -108,6 +110,9 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
 
         # Connect the "Check" button to the check_update function
         self.check.clicked.connect(lambda: self.updater.check_update(self.update, self.ask))
+
+        # initalize the google sheet
+        self.sheet = access_sheet.init_google_sheet()
 
     def new_login(self):
         """
@@ -302,6 +307,8 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         except Exception as e:
             wb = openpyxl.load_workbook(self.Excel_Name)
         sheet = wb.active
+    #TODO: Remove the hard coded values and make variables for it (we need it for the pie chart and the text file report )
+
         self.textBrowser_6.setText(str(sheet.max_row))
         self.textBrowser_13.setText("0")
         self.textBrowser_14.setText("0")
@@ -313,9 +320,6 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         self.textBrowser_15.setText(str(sheet.max_row - k))
         self.textBrowser_16.setText(str(k))
 
-
-    #TODO: Use the live excel sheet
-    # Auto focus - error handling - reset labels
     def Scan_user(self):
         """
             - Retrieves the asset tag entered by the user from the input field.
@@ -334,31 +338,27 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         AssetTag = str(self.scan_user.text())
         print("Asset Tag: " + AssetTag)
         try:
-            wb = openpyxl.load_workbook("Audit_Output.xlsx")
-            sheet = wb.active
-            row_to_update = None
-            for i in range(1, sheet.max_column + 1):
-                if (sheet.cell(row = 1, column = i).value).lower() == "asset tag":
-                    self.asset_tag_col = i
-                if (sheet.cell(row = 1, column = i).value).lower() == "serial":
-                    self.serial_col = i
-                    print(self.serial_col)
-                if (sheet.cell(row = 1, column = i).value).lower() == "checked out to":
-                    self.check_out_to_col = i
-                if (sheet.cell(row = 1, column = i).value).lower() == "owner":
-                    self.owner_col = i
-                if (sheet.cell(row = 1, column = i).value).lower() == "asset name":
-                    self.asset_name_col = i
+            all_values = self.sheet.get_all_values()
+            # get the headers from the first row
+            headers = all_values[0]
+            print("Headers:", headers)
+            # Determine column indexes
+            self.asset_tag_col = headers.index('Asset Tag') + 1
+            self.serial_col = headers.index('Serial') + 1
+            self.check_out_to_col = headers.index('checked out to') + 1
+            self.owner_col = headers.index('owner') + 1
+            self.asset_name_col = headers.index('Asset Name') + 1
 
-            for i in range(1, sheet.max_row + 1):
-                if str(sheet.cell(row=i, column=self.asset_tag_col).value) == AssetTag:
-                    # Mark this row as "True" in column 6
-                    self.asset_name.setText(str(sheet.cell(row = i, column = self.asset_name_col).value))
-                    self.asset_tag.setText(str(sheet.cell(row = i, column = self.asset_tag_col).value))
-                    self.serial.setText(str(sheet.cell(row = i, column = self.serial_col).value))
-                    self.checked_out_to.setText(str(sheet.cell(row = i, column = self.check_out_to_col).value))
-                    self.owner.setText(str(sheet.cell(row = i, column = self.owner_col).value))
-                    row_to_update = i
+            # Search for the asset tag
+            row_to_update = None
+            for row in all_values[1:]:  # Skip header row
+                if row[self.asset_tag_col - 1] == AssetTag:
+                    self.asset_name.setText(row[self.asset_name_col - 1])
+                    self.asset_tag.setText(row[self.asset_tag_col - 1])
+                    self.serial.setText(row[self.serial_col - 1])
+                    self.checked_out_to.setText(row[self.check_out_to_col - 1])
+                    self.owner.setText(row[self.owner_col - 1])
+                    row_to_update = row
                     break
             if row_to_update == None:
                 QMessageBox.about(self, "Message", "Asset Tag not found in the Excel sheet")
@@ -421,9 +421,6 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
                 self.owner_col = i
             if (sheet.cell(row = 1, column = i).value).lower() == "asset name":
                 self.asset_name_col = i
-            
-
-        print("here2")
 
         if not flag_status:
             self.status_col = sheet.max_row + 1

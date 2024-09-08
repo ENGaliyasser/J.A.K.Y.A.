@@ -179,7 +179,7 @@ QToolButton:hover {
        <set>Qt::ImhDialableCharactersOnly|Qt::ImhDigitsOnly|Qt::ImhEmailCharactersOnly|Qt::ImhFormattedNumbersOnly|Qt::ImhLatinOnly|Qt::ImhLowercaseOnly|Qt::ImhUppercaseOnly|Qt::ImhUrlCharactersOnly</set>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <property name="tabBarAutoHide">
        <bool>true</bool>
@@ -2121,14 +2121,14 @@ QTextBrowser QScrollBar {
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="Final Project (Brightskies)/Cooding/JAKYA-main/r.qrc"/>
+  <include location="r.qrc"/>
  </resources>
  <connections/>
 </ui>
