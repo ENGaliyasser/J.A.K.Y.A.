@@ -179,7 +179,7 @@ QToolButton:hover {
        <set>Qt::ImhDialableCharactersOnly|Qt::ImhDigitsOnly|Qt::ImhEmailCharactersOnly|Qt::ImhFormattedNumbersOnly|Qt::ImhLatinOnly|Qt::ImhLowercaseOnly|Qt::ImhUppercaseOnly|Qt::ImhUrlCharactersOnly</set>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <property name="tabBarAutoHide">
        <bool>true</bool>
@@ -235,7 +235,7 @@ QToolButton:hover {
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>140</width>
+                  <width>160</width>
                   <height>20</height>
                  </size>
                 </property>
@@ -278,7 +278,7 @@ QToolButton:hover {
               <property name="sizeHint" stdset="0">
                <size>
                 <width>20</width>
-                <height>78</height>
+                <height>70</height>
                </size>
               </property>
              </spacer>
@@ -290,9 +290,12 @@ QToolButton:hover {
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>320</width>
+                  <width>270</width>
                   <height>20</height>
                  </size>
                 </property>
@@ -638,10 +641,13 @@ QProgressBar::chunk {
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>78</height>
+              <height>30</height>
              </size>
             </property>
            </spacer>
@@ -687,6 +693,13 @@ QProgressBar::chunk {
                   <width>200</width>
                   <height>16777215</height>
                  </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
                 </property>
                 <property name="text">
                  <string>Asset Name</string>
@@ -741,6 +754,13 @@ p, li { white-space: pre-wrap; }
                   <height>16777215</height>
                  </size>
                 </property>
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Asset Tag</string>
                 </property>
@@ -786,6 +806,13 @@ QTextBrowser QScrollBar {
                   <width>200</width>
                   <height>16777215</height>
                  </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
                 </property>
                 <property name="text">
                  <string>Serial</string>
@@ -833,6 +860,13 @@ QTextBrowser QScrollBar {
                   <height>16777215</height>
                  </size>
                 </property>
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Checked Out To</string>
                 </property>
@@ -878,6 +912,13 @@ QTextBrowser QScrollBar {
                   <width>200</width>
                   <height>16777215</height>
                  </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
                 </property>
                 <property name="text">
                  <string>Owner</string>
@@ -925,7 +966,7 @@ QTextBrowser QScrollBar {
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>78</height>
+              <height>80</height>
              </size>
             </property>
            </spacer>
@@ -1072,10 +1113,16 @@ QTextBrowser QScrollBar {
            <layout class="QVBoxLayout" name="verticalLayout_16">
             <item>
              <widget class="QLabel" name="password_label_2">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>33</height>
+               </size>
+              </property>
               <property name="maximumSize">
                <size>
                 <width>110</width>
-                <height>16777215</height>
+                <height>33</height>
                </size>
               </property>
               <property name="font">
@@ -1083,7 +1130,12 @@ QTextBrowser QScrollBar {
                 <pointsize>14</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
+                <strikeout>false</strikeout>
+                <kerning>false</kerning>
                </font>
+              </property>
+              <property name="mouseTracking">
+               <bool>false</bool>
               </property>
               <property name="text">
                <string>Password</string>
@@ -1094,10 +1146,16 @@ QTextBrowser QScrollBar {
              <layout class="QHBoxLayout" name="horizontalLayout">
               <item>
                <widget class="QLabel" name="label_excel">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>33</height>
+                 </size>
+                </property>
                 <property name="maximumSize">
                  <size>
                   <width>110</width>
-                  <height>16777215</height>
+                  <height>33</height>
                  </size>
                 </property>
                 <property name="font">
@@ -1123,7 +1181,7 @@ QTextBrowser QScrollBar {
                 <property name="sizeHint" stdset="0">
                  <size>
                   <width>45</width>
-                  <height>20</height>
+                  <height>5</height>
                  </size>
                 </property>
                </spacer>
@@ -1139,13 +1197,13 @@ QTextBrowser QScrollBar {
               <property name="minimumSize">
                <size>
                 <width>500</width>
-                <height>30</height>
+                <height>33</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>500</width>
-                <height>16777215</height>
+                <height>33</height>
                </size>
               </property>
               <property name="inputMethodHints">
@@ -1161,13 +1219,13 @@ QTextBrowser QScrollBar {
               <property name="minimumSize">
                <size>
                 <width>500</width>
-                <height>30</height>
+                <height>33</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>500</width>
-                <height>30</height>
+                <height>33</height>
                </size>
               </property>
              </widget>
@@ -1187,12 +1245,14 @@ QTextBrowser QScrollBar {
               <property name="maximumSize">
                <size>
                 <width>60</width>
-                <height>16777215</height>
+                <height>33</height>
                </size>
               </property>
               <property name="font">
                <font>
                 <pointsize>-1</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
                </font>
               </property>
               <property name="text">
@@ -1217,6 +1277,8 @@ QTextBrowser QScrollBar {
               <property name="font">
                <font>
                 <pointsize>-1</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
                </font>
               </property>
               <property name="text">
@@ -1523,6 +1585,13 @@ background-image: url(:/Pass_check/right sign.jpg);</string>
                 <height>16777215</height>
                </size>
               </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="text">
                <string>All Brightskies Assets Number</string>
               </property>
@@ -1576,6 +1645,13 @@ p, li { white-space: pre-wrap; }
                 <height>16777215</height>
                </size>
               </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="text">
                <string>All Mahle Assets Number</string>
               </property>
@@ -1621,6 +1697,13 @@ QTextBrowser QScrollBar {
                 <width>200</width>
                 <height>16777215</height>
                </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
               </property>
               <property name="text">
                <string>Audit Assets Number</string>
@@ -1668,6 +1751,13 @@ QTextBrowser QScrollBar {
                 <height>16777215</height>
                </size>
               </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="text">
                <string>Remaining Assets</string>
               </property>
@@ -1713,6 +1803,13 @@ QTextBrowser QScrollBar {
                 <width>200</width>
                 <height>16777215</height>
                </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
               </property>
               <property name="text">
                <string>Scanned Assets</string>
@@ -1850,6 +1947,7 @@ QTextBrowser QScrollBar {
               </property>
               <property name="font">
                <font>
+                <pointsize>10</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
@@ -1875,6 +1973,7 @@ QTextBrowser QScrollBar {
               </property>
               <property name="font">
                <font>
+                <pointsize>10</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
