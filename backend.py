@@ -302,6 +302,8 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         except Exception as e:
             wb = openpyxl.load_workbook(self.Excel_Name)
         sheet = wb.active
+    #TODO: Remove the hard coded values and make variables for it (we need it for the pie chart and the text file report )
+
         self.textBrowser_6.setText(str(sheet.max_row))
         self.textBrowser_13.setText("0")
         self.textBrowser_14.setText("0")
