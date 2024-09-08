@@ -270,6 +270,8 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
             for i in range(1, sheet.max_row + 1):
                 if str(sheet.cell(row=i, column=self.asset_tag_col).value) == AssetTag:
                     # Mark this row as "True" in column 6
+                    if sheet.cell(row=i, column=self.status_col).value == "True":
+                        self.start_scan_label.setText("Item Already Scanned!")
                     sheet.cell(row=i, column=self.status_col).value = "True"
                     row_to_update = i
                     break

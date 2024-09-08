@@ -19,11 +19,6 @@
   <property name="windowTitle">
    <string>JAKYA</string>
   </property>
-  <property name="windowIcon">
-   <iconset>
-    <selectedon>:/JAKYA/JAKYA_LOGO.jpg</selectedon>
-   </iconset>
-  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
@@ -184,7 +179,7 @@ QToolButton:hover {
        <set>Qt::ImhDialableCharactersOnly|Qt::ImhDigitsOnly|Qt::ImhEmailCharactersOnly|Qt::ImhFormattedNumbersOnly|Qt::ImhLatinOnly|Qt::ImhLowercaseOnly|Qt::ImhUppercaseOnly|Qt::ImhUrlCharactersOnly</set>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <property name="tabBarAutoHide">
        <bool>true</bool>
@@ -1077,10 +1072,16 @@ QTextBrowser QScrollBar {
            <layout class="QVBoxLayout" name="verticalLayout_16">
             <item>
              <widget class="QLabel" name="password_label_2">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>30</height>
+               </size>
+              </property>
               <property name="maximumSize">
                <size>
                 <width>110</width>
-                <height>16777215</height>
+                <height>30</height>
                </size>
               </property>
               <property name="font">
@@ -1099,10 +1100,16 @@ QTextBrowser QScrollBar {
              <layout class="QHBoxLayout" name="horizontalLayout">
               <item>
                <widget class="QLabel" name="label_excel">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>30</height>
+                 </size>
+                </property>
                 <property name="maximumSize">
                  <size>
                   <width>110</width>
-                  <height>16777215</height>
+                  <height>30</height>
                  </size>
                 </property>
                 <property name="font">
@@ -1150,7 +1157,7 @@ QTextBrowser QScrollBar {
               <property name="maximumSize">
                <size>
                 <width>500</width>
-                <height>16777215</height>
+                <height>30</height>
                </size>
               </property>
               <property name="inputMethodHints">
@@ -2114,14 +2121,14 @@ QTextBrowser QScrollBar {
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="r.qrc"/>
+  <include location="Final Project (Brightskies)/Cooding/JAKYA-main/r.qrc"/>
  </resources>
  <connections/>
 </ui>
