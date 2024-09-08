@@ -86,6 +86,9 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         self.back_btn_user_2.clicked.connect(self.back_menu)
         self.pushButton_browse_audit.clicked.connect(self.browse_excel)
         self.pushButton_login.clicked.connect(self.login)
+        self.FinishAudit.clicked.connect(self.finish_audit)
+        self.ShowStatistics.clicked.connect(self.show_statistics)
+        self.back_btn_stats.clicked.connect(self.backfromstats)
         #self.insert_btn_audit.clicked.connect(self.insert_audit)
         self.new_login()
         self.lineEdit_audit.returnPressed.connect(self.insert_audit)
@@ -247,6 +250,9 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         # Install the event filter on the tab widget in audit mode
         self.focus_redirector_audit = FocusRedirector(self.lineEdit_audit)
         self.tabWidget.installEventFilter(self.focus_redirector_audit)
+        # Statistics buttons
+        self.FinishAudit.show()
+        self.ShowStatistics.hide()
         
 
 # TODO:
@@ -427,6 +433,16 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
             sheet.cell(row = 1, column = self.status_col).value = "Status"
         workbook.save("Audit_Output.xlsx")
         return True
+    def finish_audit(self):
+        self.FinishAudit.hide()
+        self.ShowStatistics.show()
+    def show_statistics(self):
+        self.tabWidget.setCurrentIndex(4)
+
+    def backfromstats(self):
+        self.tabWidget.setCurrentIndex(3)
+
+
 
 
 if __name__ == "__main__":
