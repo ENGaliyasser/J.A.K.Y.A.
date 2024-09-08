@@ -1,7 +1,7 @@
 from front import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets, QtTest
 import sys
-from PyQt5.QtWidgets import QMessageBox, QFileDialog
+from PyQt5.QtWidgets import QMessageBox, QFileDialog, QApplication, QMainWindow, QLineEdit, QVBoxLayout, QWidget, QTabWidget
 import openpyxl
 from PyQt5.QtCore import QTimer, pyqtSignal, QObject, QThread
 import os
@@ -28,6 +28,49 @@ def check_password(entered_pass):
     else:
         return False
 
+
+class FocusRedirector(QObject):
+    """
+    FocusRedirector is a class that ensures a QLineEdit always 
+    receives focus whenever certain events occur within the 
+    parent widget it monitors.
+
+    Attributes
+    ----------
+    target : QWidget
+        The target widget that should always receive focus.
+
+    Methods
+    -------
+    eventFilter(obj, event)
+        Monitors and handles events, redirecting focus to the target widget 
+        when specific events occur.
+    """
+    def __init__(self, target):
+        super().__init__()
+        self.target = target
+
+    def eventFilter(self, obj, event):
+        """
+        Monitors and handles events, redirecting focus to the target widget 
+        when specific events occur.
+
+        Parameters
+        ----------
+        obj : QObject
+            The object for which the event is being filtered.
+        event : QEvent
+            The event to be filtered and possibly handled.
+
+        Returns
+        -------
+        bool
+            True if the event should be filtered out, False otherwise.
+        """
+        if event.type() in (event.FocusIn, event.MouseButtonPress):
+            self.target.setFocus()
+        return super().eventFilter(obj, event)
+
 class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
 
     def __init__(self):
@@ -41,9 +84,12 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         self.back_btn_user_2.clicked.connect(self.back_menu)
         self.pushButton_browse_audit.clicked.connect(self.browse_excel)
         self.pushButton_login.clicked.connect(self.login)
-        self.insert_btn_audit.clicked.connect(self.insert_audit)
+        #self.insert_btn_audit.clicked.connect(self.insert_audit)
         self.new_login()
-        self.lineEdit_audit.editingFinished.connect(self.insert_audit)
+        self.lineEdit_audit.returnPressed.connect(self.insert_audit)
+        self.scan_user.returnPressed.connect(self.Scan_user)
+        self.scan_user.setFocus()
+
         # Initialize Updater with the current version and repository details
         self.updater = Updater(
             current_version="v2.00",  # Replace with your tool's version
@@ -86,9 +132,8 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         self.lineEdit_password_audit_2.setReadOnly(False)
         self.pushButton_login.setDisabled(False)
         self.Excel_Name = None
-        self.pushButton_Scan.clicked.connect(self.Scan_user)
-
-
+        #self.pushButton_scan.clicked.connect(self.Scan_user)
+        self.right.hide()
 
 
     def user_mode(self):
@@ -96,10 +141,23 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         switches to user mode tab
         """
         self.tabWidget.setCurrentIndex(1)
+        self.scan_user.setFocus()
+        self.scan_user.setCursor(QtCore.Qt.BlankCursor)
+        self.scan_user.clear()
+        # Remove other event filters
+        try:
+            self.tabWidget.removeEventFilter(self.focus_redirector_audit)
+        except:
+            pass
+        # Install the event filter on the tab widget in user mode
+        self.focus_redirector_user = FocusRedirector(self.scan_user)
+        self.tabWidget.installEventFilter(self.focus_redirector_user)
+
     def audit_mode(self):
         """
         Switches to audit mode login tab
         """
+        
         self.tabWidget.setCurrentIndex(2)
 
     def back_menu(self):
@@ -131,7 +189,8 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
             self.label_excel.show()
             self.lineEdit_excel_audit.show()
             self.pushButton_browse_audit.show()
-            QMessageBox.about(self, "Message", "Correct Password! Select an Excel file.")
+            # QMessageBox.about(self, "Message", "Correct Password! Select an Excel file.")
+            self.right.show()
         else:
             QMessageBox.about(self, "Message", "Invalid password! Please Enter the Correct Password.")
 
@@ -172,11 +231,21 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         self.Display_audit()
         self.textBrowser_5.setText(str(date.today()))
         self.textBrowser_4.setText(os.path.basename(str(self.Excel_Name)))
-       # self.lineEdit_audit.setVisible(False)
+        #self.lineEdit_audit.setVisible(False)
         self.lineEdit_audit.setFocus()
+        self.lineEdit_audit.setCursor(QtCore.Qt.BlankCursor)
+        # Remove othe event filters
+        try:
+            self.tabWidget.removeEventFilter(self.focus_redirector_user)
+        except:
+            pass
+        # Install the event filter on the tab widget in audit mode
+        self.focus_redirector_audit = FocusRedirector(self.lineEdit_audit)
+        self.tabWidget.installEventFilter(self.focus_redirector_audit)
         
 
-
+# TODO:
+# on scanning if the item is already scanned tell the user in a label. 
     def insert_audit(self):
         """
            - Retrieves the asset tag entered by the user from the input field.
@@ -187,6 +256,7 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
            - If the asset tag is not found, shows an error message.
            - Catches and handles any errors that occur during the process.
            """
+        self.start_scan_label.clear()
         AssetTag = str(self.lineEdit_audit.text())
         print("Asset Tag: " + AssetTag)
         try:
@@ -208,7 +278,8 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
                 wb.save("Audit_Output.xlsx")
                 self.Display_audit()
             else:
-                QMessageBox.about(self, "Message", "Asset Tag not found in the Excel sheet")
+                if not self.lineEdit_audit.text() == "":
+                    QMessageBox.about(self, "Message", "Asset Tag not found in the Excel sheet")
 
         except Exception as e:
             QMessageBox.about(self, "Message", "Error: " + str(e))
@@ -242,6 +313,7 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
 
 
     #TODO: Use the live excel sheet
+    # Auto focus - error handling - reset labels
     def Scan_user(self):
         """
             - Retrieves the asset tag entered by the user from the input field.
@@ -250,7 +322,14 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
             - Displays the asset name,model, and assigned user in the text browsers.
             - Catches and handles any errors that occur during the process.
             """
-        AssetTag = str(self.lineEdit.text())
+        # Reset Labels on each new scan
+        self.asset_name.clear()
+        self.asset_tag.clear()
+        self.serial.clear()
+        self.checked_out_to.clear()
+        self.owner.clear()
+
+        AssetTag = str(self.scan_user.text())
         print("Asset Tag: " + AssetTag)
         try:
             #Change this
@@ -261,15 +340,18 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
             for i in range(1, sheet.max_row + 1):
                 if str(sheet.cell(row=i, column=2).value) == AssetTag:
                     # Mark this row as "True" in column 6
-                    self.textBrowser.setText(str(sheet.cell(row = i, column = 1).value))
-                    self.textBrowser_2.setText(str(sheet.cell(row = i, column = 4).value))
-                    self.textBrowser_3.setText(str(sheet.cell(row = i, column = 5).value))
+                    self.asset_name.setText(str(sheet.cell(row = i, column = 1).value))
+                    self.asset_tag.setText(str(sheet.cell(row = i, column = 2).value))
+                    self.serial.setText(str(sheet.cell(row = i, column = 3).value))
+                    self.checked_out_to.setText(str(sheet.cell(row = i, column = 4).value))
+                    self.owner.setText(str(sheet.cell(row = i, column = 5).value))
                     row_to_update = i
                     break
+            if not row_to_update:
+                QMessageBox.about(self, "Message", "Asset Tag not found in the Excel sheet")
 
         except Exception as e:
             QMessageBox.about(self, "Message", "Error: " + str(e))
-
     def check_excel_format(self, excel_file):
         """Checks if the excel file has the correct format.
 
