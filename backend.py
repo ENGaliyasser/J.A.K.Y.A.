@@ -28,36 +28,6 @@ def check_password(entered_pass):
     else:
         return False
 
-def check_excel_format(excel_file):
-    """Checks if the excel file has the correct format.
-
-    Args:
-        excel_file: Path to the Excel file.
-
-    Returns:
-        True if the sheet format is correct, False otherwise.
-    """
-    workbook = openpyxl.load_workbook(excel_file)
-    sheet = workbook.active
-    # defining the excpected columns
-    # TODO:
-    # Add Model, Category, Status, Checked Out To, Location, Purchase Cost, HS-Code, Owner
-    # Important (ERROR): Asset Name, Asset Tag, Serial, Checked Out To, Owner (USER MODE)
-    # Warning: The rest
-    expected_columns = ["Asset Name", "Asset Tag", "Serial", "Checked Out To", "Model", "Assigne"]
-    # Get the actual number of columns in the first row
-    actual_columns = [sheet.cell(row=1, column=i).value for i in range(1, 6)]
-    print(actual_columns)
-    # Check if the number of columns is correct
-    if len(actual_columns) != len(expected_columns):
-        return False
-
-    # Check if the column titles match the expected titles
-    if actual_columns != expected_columns:
-        return False
-    # All correct Return True
-    return True
-
 class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
 
     def __init__(self):
@@ -181,7 +151,7 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         if Excel_File.endswith(".xlsx"):
             self.Excel_Name = Excel_File
             self.lineEdit_excel_audit.setText(Excel_File)
-            if check_excel_format(Excel_File):
+            if self.check_excel_format(Excel_File):
                 self.msg_box = QMessageBox(self)
                 self.msg_box.setWindowTitle("Success")
                 self.msg_box.setText("Let's start the audit")
@@ -219,9 +189,9 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
             row_to_update = None
 
             for i in range(1, sheet.max_row + 1):
-                if str(sheet.cell(row=i, column=2).value) == AssetTag:
+                if str(sheet.cell(row=i, column=self.asset_tag_col).value) == AssetTag:
                     # Mark this row as "True" in column 6
-                    sheet.cell(row=i, column=6).value = "True"
+                    sheet.cell(row=i, column=self.status_col).value = "True"
                     row_to_update = i
                     break
 
@@ -247,7 +217,7 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         self.textBrowser_14.setText("0")
         k = 0
         for i in range(1, sheet.max_row + 1):
-            if sheet.cell(row=i, column=6).value == "True":
+            if sheet.cell(row=i, column=self.status_col).value == "True":
                 k += 1
         self.textBrowser_14.setText(str(k))
         self.textBrowser_15.setText(str(sheet.max_row - k))
@@ -276,7 +246,59 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         except Exception as e:
             QMessageBox.about(self, "Message", "Error: " + str(e))
 
-            
+    def check_excel_format(self, excel_file):
+        """Checks if the excel file has the correct format.
+
+        Args:
+            excel_file: Path to the Excel file.
+
+        Returns:
+            True if the sheet format is correct, False otherwise.
+        """
+        if(excel_file != os.getcwd().replace("\\", "/") + "/Audit_Output.xlsx"):
+            try:
+                workbook = openpyxl.load_workbook("Audit_Output.xlsx")
+                QMessageBox.about(self, "Error", "Please move the Audit_Output.xlsx file to a different folder, or choose it as the Excel file.")
+                return False
+            except Exception as e:
+                workbook = openpyxl.load_workbook(excel_file)
+        else:
+            workbook = openpyxl.load_workbook("Audit_Output.xlsx")
+
+        sheet = workbook.active
+        # defining the excpected columns
+        # TODO:
+        # Add Model, Category, Status, Checked Out To, Location, Purchase Cost, HS-Code, Owner
+        # Important (ERROR): Asset Name, Asset Tag, Serial, Checked Out To, Owner (USER MODE)
+        # Warning: The rest
+        expected_columns = set(["asset name", "asset tag", "serial", "checked out to", "model", "category", "status",
+                            "location", "purchase cost", "hs-code", "owner"])
+        important_columns = set(["asset name", "asset tag", "serial", "checked out to", "owner"])
+
+        # Get the actual number of columns in the first row
+        actual_columns = set([sheet.cell(row=1, column=i).value.lower() for i in range(1, sheet.max_column + 1)])
+        print(actual_columns)
+        print(important_columns)
+
+        # Check if the column titles match the expected titles
+        if not important_columns.issubset(actual_columns):
+            return False
+        # All correct Return True
+        flag_status = False
+        for i in range(1, sheet.max_column + 1):
+            if (sheet.cell(row = 1, column = i).value).lower() == "asset tag":
+                self.asset_tag_col = i
+            if (sheet.cell(row = 1, column = i).value).lower() == "status":
+                self.status_col = i
+                flag_status = True
+
+        print("here2")
+
+        if not flag_status:
+            self.status_col = sheet.max_row + 1
+            sheet.cell(row = 1, column = self.status_col).value = "Status"
+        workbook.save("Audit_Output.xlsx")
+        return True
 
 
 if __name__ == "__main__":
