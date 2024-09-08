@@ -4,6 +4,7 @@
   </qresource>
   <qresource prefix="Pass_check">
     <file>password.jpg</file>
+    <file>right sign.jpg</file>
   </qresource>
   <qresource prefix="JAKYA">
     <file>JAKYA_LOGO.jpg</file>

@@ -332,26 +332,39 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         AssetTag = str(self.scan_user.text())
         print("Asset Tag: " + AssetTag)
         try:
-            #Change this
             wb = openpyxl.load_workbook("Audit_Output.xlsx")
             sheet = wb.active
             row_to_update = None
+            for i in range(1, sheet.max_column + 1):
+                if (sheet.cell(row = 1, column = i).value).lower() == "asset tag":
+                    self.asset_tag_col = i
+                if (sheet.cell(row = 1, column = i).value).lower() == "serial":
+                    self.serial_col = i
+                    print(self.serial_col)
+                if (sheet.cell(row = 1, column = i).value).lower() == "checked out to":
+                    self.check_out_to_col = i
+                if (sheet.cell(row = 1, column = i).value).lower() == "owner":
+                    self.owner_col = i
+                if (sheet.cell(row = 1, column = i).value).lower() == "asset name":
+                    self.asset_name_col = i
 
             for i in range(1, sheet.max_row + 1):
-                if str(sheet.cell(row=i, column=2).value) == AssetTag:
+                if str(sheet.cell(row=i, column=self.asset_tag_col).value) == AssetTag:
                     # Mark this row as "True" in column 6
-                    self.asset_name.setText(str(sheet.cell(row = i, column = 1).value))
-                    self.asset_tag.setText(str(sheet.cell(row = i, column = 2).value))
-                    self.serial.setText(str(sheet.cell(row = i, column = 3).value))
-                    self.checked_out_to.setText(str(sheet.cell(row = i, column = 4).value))
-                    self.owner.setText(str(sheet.cell(row = i, column = 5).value))
+                    self.asset_name.setText(str(sheet.cell(row = i, column = self.asset_name_col).value))
+                    self.asset_tag.setText(str(sheet.cell(row = i, column = self.asset_tag_col).value))
+                    self.serial.setText(str(sheet.cell(row = i, column = self.serial_col).value))
+                    self.checked_out_to.setText(str(sheet.cell(row = i, column = self.check_out_to_col).value))
+                    self.owner.setText(str(sheet.cell(row = i, column = self.owner_col).value))
                     row_to_update = i
                     break
-            if not row_to_update:
+            if row_to_update == None:
                 QMessageBox.about(self, "Message", "Asset Tag not found in the Excel sheet")
 
         except Exception as e:
             QMessageBox.about(self, "Message", "Error: " + str(e))
+        self.scan_user.clear()
+
     def check_excel_format(self, excel_file):
         """Checks if the excel file has the correct format.
 
@@ -397,6 +410,16 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
             if (sheet.cell(row = 1, column = i).value).lower() == "status":
                 self.status_col = i
                 flag_status = True
+            if (sheet.cell(row = 1, column = i).value).lower() == "serial":
+                self.serial_col = i
+                print(self.serial_col)
+            if (sheet.cell(row = 1, column = i).value).lower() == "check out to":
+                self.check_out_to_col = i
+            if (sheet.cell(row = 1, column = i).value).lower() == "owner":
+                self.owner_col = i
+            if (sheet.cell(row = 1, column = i).value).lower() == "asset name":
+                self.asset_name_col = i
+            
 
         print("here2")
 
