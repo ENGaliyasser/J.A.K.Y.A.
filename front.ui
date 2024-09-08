@@ -19,6 +19,11 @@
   <property name="windowTitle">
    <string>JAKYA</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <selectedon>:/JAKYA/JAKYA_LOGO.jpg</selectedon>
+   </iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
