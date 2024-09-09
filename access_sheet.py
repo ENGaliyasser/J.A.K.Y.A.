@@ -7,8 +7,9 @@ def init_google_sheet():
         'https://www.googleapis.com/auth/spreadsheets',
         'https://www.googleapis.com/auth/drive'
     ]
+    # add access json here
     # Add your service account file path
-    creds = Credentials.from_service_account_file('jakya-audit-6fd3f63aae96.json', scopes=scope)
+    creds = Credentials.from_service_account_info(service_account_info, scopes=scope)
 
     # Authorize the Client
     client = gspread.authorize(creds)
