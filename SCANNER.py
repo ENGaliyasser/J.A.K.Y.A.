@@ -1,5 +1,12 @@
+# Author: Khaled Waleed & Ali Yasser
+# Date: 9 September 2024
+# Description: This script is designed to interface with a USB serial device, specifically a scanner. 
+#              It uses PyQt5 to handle threading and signal communication. The script includes functionality 
+#              to automatically find a connected USB serial device and read data from it. The data is emitted 
+#              via a PyQt5 signal for further processing or display in a GUI application.
 import serial
 import serial.tools.list_ports
+from PyQt5.QtCore import QCoreApplication, QThread, pyqtSignal, QObject
 
 def find_usb_serial_device():
     ports = serial.tools.list_ports.comports()
@@ -8,32 +15,20 @@ def find_usb_serial_device():
             return port.device
     return None
 
-def read_data(ser):
-    while True:
-        if ser.in_waiting > 0:
-            data = ser.readline().decode('utf-8').rstrip()
-            print("Received data: {0}".format(data))
+class Scanner(QObject):
+    data_received = pyqtSignal(str)
 
-# Find the USB serial device
-usb_serial_port = find_usb_serial_device()
+    def __init__(self, ser):
+        super().__init__()
+        self.ser = ser
+        self._is_running = True
 
-if usb_serial_port:
-    # Configure the serial port
-    ser = serial.Serial(
-        port=usb_serial_port,
-        baudrate=9600,
-        timeout=1
-    )
+    def run(self):
+        while self._is_running:
+            if self.ser.in_waiting > 0:
+                data = self.ser.readline().decode('utf-8').rstrip()
+                print("Received data: {0}".format(data))
+                self.data_received.emit(data)
 
-    if ser.is_open:
-        print(f"Connected to {usb_serial_port}. Waiting for data... Press Ctrl+C to exit.")
-        try:
-            read_data(ser)
-        except KeyboardInterrupt:
-            print("\nExiting...")
-        finally:
-            ser.close()
-    else:
-        print("Failed to open the selected port.")
-else:
-    print("No USB serial device found.")
+    def stop(self):
+        self._is_running = False
