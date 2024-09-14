@@ -121,8 +121,9 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         # Access the live google sheet and save it in self.sheet
         try:
              # initalize the google sheet
-            self.sheet = access_sheet.init_google_sheet()
-        except:
+            self.sheet = access_sheet.init_google_sheet(sheet_name="test")
+        except Exception as e:
+            print(e)
             QMessageBox.about(self, "Message", "Can't access the google sheet. Hint: Check your internet connection.")
 
         # Find the USB serial device
