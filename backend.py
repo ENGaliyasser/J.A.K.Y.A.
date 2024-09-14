@@ -274,6 +274,12 @@ class BackEndClass(QtWidgets.QWidget, Ui_MainWindow):
         # Set current mode to user mode
         global CURRENT_MODE
         CURRENT_MODE = "User Mode"
+        # Reset Labels
+        self.asset_name.clear()
+        self.asset_tag.clear()
+        self.serial.clear()
+        self.checked_out_to.clear()
+        self.owner.clear()
 
     def audit_mode(self):
         """
